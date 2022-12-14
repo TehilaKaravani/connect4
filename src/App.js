@@ -27,6 +27,8 @@ class App extends React.Component {
             emptyCells : newEmptyCells
         })
     }
+
+
     componentDidMount() {
         this.createNewBoard()
     }
