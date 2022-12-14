@@ -38,7 +38,7 @@ class App extends React.Component {
         let newFullCells = this.state.emptyCells
         newFullCells[column] = this.state.emptyCells[column] - 1
 
-        let currentPlayer = ""
+        let currentPlayer
         if (this.state.counter % 2 === 0) {
             currentPlayer = "player1"
         }else {
