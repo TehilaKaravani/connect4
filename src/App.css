@@ -1,6 +1,12 @@
 div {
   text-align: center;
   font-size: 25px;
+  font-family:fantasy;
+}
+
+.Headline{
+  color: darkblue;
+  font-size: 80px;
 }
 
 table {
