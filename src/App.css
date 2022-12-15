@@ -10,10 +10,8 @@ div {
 }
 
 table {
-  /*border-spacing: 30px 0;*/
   font-size: 40px;
   text-align: center;
-
   border-radius: 10px;
   background: blue;
 }
@@ -27,13 +25,6 @@ tr, td {
 table, tr, td {
   border: 2px solid darkblue;
   margin: 0 auto;
-}
-
-button{
-  text-align: center;
-  border: 1px solid darkgrey;
-  border-radius: 5px;
-  font-size: 30px;
 }
 
 .empty {

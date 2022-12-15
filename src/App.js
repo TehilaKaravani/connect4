@@ -4,12 +4,13 @@ import React from "react";
 class App extends React.Component {
 
     state = {
+        rowsNumber: 6,
+        columnNumber: 7,
         board: [],
         emptyCells: [],
         counterTurns: 0,
         isGameOver: false,
-        rowsNumber: 6,
-        columnNumber: 7,
+        isBoardFull: false
     }
 
     createNewBoard = () => {
@@ -36,10 +37,11 @@ class App extends React.Component {
     }
 
     changePlayer = (column) => {
-        if (!this.state.isGameOver){
-            let newBoard = this.state.board
+        const emptyCells = this.state.emptyCells[column]
 
-            const emptyCells = this.state.emptyCells[column]
+        if (!this.state.isGameOver && (emptyCells >= 0)){
+
+            let newBoard = this.state.board
             let newFullCells = this.state.emptyCells
             newFullCells[column] = this.state.emptyCells[column] - 1
 
@@ -49,7 +51,8 @@ class App extends React.Component {
             this.setState({
                 board: newBoard,
                 fullCells: newFullCells,
-                counterTurns: this.state.counterTurns + 1
+                counterTurns: this.state.counterTurns + 1,
+                isBoardFull: ((this.state.counterTurns + 1) == (this.state.rowsNumber * this.state.columnNumber))
             })
 
             if (this.checkWin(column, emptyCells, currentPlayer)) {
@@ -68,7 +71,7 @@ class App extends React.Component {
 
     checkWinInColumn = (column, lastPaintedCell, player) => {
         let equalCells = 1
-        if (lastPaintedCell <= 2) {
+        if (lastPaintedCell <= (this.state.rowsNumber - 4)) {
             for (let i = 1; i < 4; i++) {
                 if (player === this.state.board[lastPaintedCell + i][column]) {
                     equalCells++
@@ -172,8 +175,9 @@ class App extends React.Component {
                 </table>
 
                 <br/>
+
                 <div className={"player" + (((this.state.counterTurns - 1) % 2) + 1)}>
-                    {(this.state.isGameOver) ? "Player " + (((this.state.counterTurns - 1) % 2) + 1) + " - You Are The Winner 🥇" : ""}
+                    {(this.state.isGameOver) ? "Player " + (((this.state.counterTurns - 1) % 2) + 1) + " - You Are The Winner 🥇" : (this.state.isBoardFull ? "No one won ... 😕" : "")}
                 </div>
 
             </div>
