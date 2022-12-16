@@ -13,7 +13,7 @@ class App extends React.Component {
         isBoardFull: false
     }
 
-    createNewBoard = () => {
+    buildBoard = () => {
         const rows = [];
         for (let i = 0; i < this.state.rowsNumber; i++) {
             const columns = []
@@ -33,29 +33,29 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.createNewBoard()
+        this.buildBoard()
     }
 
-    changePlayer = (column) => {
-        const emptyCells = this.state.emptyCells[column]
+    makeAMove = (column) => {
+        const emptyCellsRow = this.state.emptyCells[column]
 
-        if (!this.state.isGameOver && (emptyCells >= 0)){
+        if (!this.state.isGameOver && (emptyCellsRow >= 0)){
 
             let newBoard = this.state.board
             let newFullCells = this.state.emptyCells
             newFullCells[column] = this.state.emptyCells[column] - 1
 
             let currentPlayer = "player" + ((this.state.counterTurns % 2) + 1)
-            newBoard[emptyCells][column] = currentPlayer
+            newBoard[emptyCellsRow][column] = currentPlayer
 
             this.setState({
                 board: newBoard,
                 fullCells: newFullCells,
                 counterTurns: this.state.counterTurns + 1,
-                isBoardFull: ((this.state.counterTurns + 1) == (this.state.rowsNumber * this.state.columnNumber))
+                isBoardFull: ((this.state.counterTurns + 1) === (this.state.rowsNumber * this.state.columnNumber))
             })
 
-            if (this.checkWin(column, emptyCells, currentPlayer)) {
+            if (this.checkWin(column, emptyCellsRow, currentPlayer)) {
                 this.setState({
                     isGameOver: true
                 })
@@ -164,7 +164,7 @@ class App extends React.Component {
                                         row.map((cell, columnIndex) => {
                                             return (
                                                 <td className={cell}
-                                                    onClick={() => this.changePlayer(columnIndex)}></td>
+                                                    onClick={() => this.makeAMove(columnIndex)}></td>
                                             )
                                         })
                                     }
