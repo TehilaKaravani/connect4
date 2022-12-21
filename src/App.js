@@ -9,7 +9,7 @@ class App extends React.Component {
         board: [],
         emptyCells: [],
         counterTurns: 0,
-        isGameOver: false,
+        hasWinner: false,
         isBoardFull: false
     }
 
@@ -39,7 +39,7 @@ class App extends React.Component {
     makeAMove = (column) => {
         const emptyCellsRow = this.state.emptyCells[column]
 
-        if (!this.state.isGameOver && (emptyCellsRow >= 0)){
+        if (!this.state.hasWinner && (emptyCellsRow >= 0)){
 
             let newBoard = this.state.board
             let newFullCells = this.state.emptyCells
@@ -57,7 +57,7 @@ class App extends React.Component {
 
             if (this.checkWin(column, emptyCellsRow, currentPlayer)) {
                 this.setState({
-                    isGameOver: true
+                    hasWinner: true
                 })
             }
         }
@@ -177,7 +177,7 @@ class App extends React.Component {
                 <br/>
 
                 <div className={"player" + (((this.state.counterTurns - 1) % 2) + 1)}>
-                    {(this.state.isGameOver) ? "Player " + (((this.state.counterTurns - 1) % 2) + 1) + " - You Are The Winner 🥇" : (this.state.isBoardFull ? "No one won ... 😕" : "")}
+                    {(this.state.hasWinner) ? "Player " + (((this.state.counterTurns - 1) % 2) + 1) + " - You Are The Winner 🥇" : (this.state.isBoardFull ? "No one won ... 😕" : "")}
                 </div>
 
             </div>
